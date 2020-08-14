@@ -5,10 +5,17 @@ import (
 	"testing"
 )
 
+type IntLess int
+
+func (number IntLess) Less(other interface{}) bool {
+	return number < other.(IntLess)
+}
+
 func TestMinimum(t *testing.T) {
 	type args struct {
 		items []Less
 	}
+
 	tests := []struct {
 		name string
 		args args
