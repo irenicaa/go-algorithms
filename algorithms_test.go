@@ -22,7 +22,7 @@ func TestMinimum(t *testing.T) {
 		want Less
 	}{
 		{
-			name: "succes",
+			name: "success",
 			args: args{
 				items: []Less{
 					IntLess(19732),
