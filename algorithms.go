@@ -11,3 +11,15 @@ func Minimum(items []Less) Less {
 
 	return minimum
 }
+
+// Maximum ...
+func Maximum(items []Less) Less {
+	maximum := items[0]
+	for _, item := range items[1:] {
+		if maximum.Less(item) {
+			maximum = item
+		}
+	}
+
+	return maximum
+}
