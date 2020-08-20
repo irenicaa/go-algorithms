@@ -23,3 +23,14 @@ func Maximum(items []Less) Less {
 
 	return maximum
 }
+
+// Search ...
+func Search(items []int, sample int) (int, bool) {
+	for _, item := range items {
+		if item == sample {
+			return item, true
+		}
+	}
+
+	return 0, false
+}
