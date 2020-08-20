@@ -25,12 +25,12 @@ func Maximum(items []Less) Less {
 }
 
 // Search ...
-func Search(items []int, sample int) (int, bool) {
+func Search(items []Equal, sample Equal) (Equal, bool) {
 	for _, item := range items {
-		if item == sample {
+		if item.Equal(sample) {
 			return item, true
 		}
 	}
 
-	return 0, false
+	return nil, false
 }
