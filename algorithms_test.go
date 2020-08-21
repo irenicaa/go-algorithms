@@ -5,14 +5,14 @@ import (
 	"testing"
 )
 
-type IntLess int
+type Int int
 
-func (number IntLess) Less(other interface{}) bool {
-	return number < other.(IntLess)
+func (number Int) Less(other interface{}) bool {
+	return number < other.(Int)
 }
 
-func (number IntLess) Equal(other interface{}) bool {
-	return number == other.(IntLess)
+func (number Int) Equal(other interface{}) bool {
+	return number == other.(Int)
 }
 
 func TestMinimum(t *testing.T) {
@@ -29,19 +29,19 @@ func TestMinimum(t *testing.T) {
 			name: "success",
 			args: args{
 				items: []Less{
-					IntLess(19732),
-					IntLess(13),
-					IntLess(4197),
-					IntLess(23711),
-					IntLess(23073),
-					IntLess(14740),
-					IntLess(22248),
-					IntLess(6874),
-					IntLess(6601),
-					IntLess(1608),
+					Int(19732),
+					Int(13),
+					Int(4197),
+					Int(23711),
+					Int(23073),
+					Int(14740),
+					Int(22248),
+					Int(6874),
+					Int(6601),
+					Int(1608),
 				},
 			},
-			want: IntLess(13),
+			want: Int(13),
 		},
 	}
 	for _, tt := range tests {
@@ -67,19 +67,19 @@ func TestMaximum(t *testing.T) {
 			name: "success",
 			args: args{
 				items: []Less{
-					IntLess(19732),
-					IntLess(13),
-					IntLess(4197),
-					IntLess(23711),
-					IntLess(23073),
-					IntLess(14740),
-					IntLess(22248),
-					IntLess(6874),
-					IntLess(6601),
-					IntLess(1608),
+					Int(19732),
+					Int(13),
+					Int(4197),
+					Int(23711),
+					Int(23073),
+					Int(14740),
+					Int(22248),
+					Int(6874),
+					Int(6601),
+					Int(1608),
 				},
 			},
-			want: IntLess(23711),
+			want: Int(23711),
 		},
 	}
 	for _, tt := range tests {
@@ -107,38 +107,38 @@ func TestSearch(t *testing.T) {
 			name: "found",
 			args: args{
 				items: []Equal{
-					IntLess(19732),
-					IntLess(13),
-					IntLess(4197),
-					IntLess(23711),
-					IntLess(23073),
-					IntLess(14740),
-					IntLess(22248),
-					IntLess(6874),
-					IntLess(6601),
-					IntLess(1608),
+					Int(19732),
+					Int(13),
+					Int(4197),
+					Int(23711),
+					Int(23073),
+					Int(14740),
+					Int(22248),
+					Int(6874),
+					Int(6601),
+					Int(1608),
 				},
-				sample: IntLess(13),
+				sample: Int(13),
 			},
-			wantResult: IntLess(13),
+			wantResult: Int(13),
 			wantOk:     true,
 		},
 		{
 			name: "not found",
 			args: args{
 				items: []Equal{
-					IntLess(19732),
-					IntLess(13),
-					IntLess(4197),
-					IntLess(23711),
-					IntLess(23073),
-					IntLess(14740),
-					IntLess(22248),
-					IntLess(6874),
-					IntLess(6601),
-					IntLess(1608),
+					Int(19732),
+					Int(13),
+					Int(4197),
+					Int(23711),
+					Int(23073),
+					Int(14740),
+					Int(22248),
+					Int(6874),
+					Int(6601),
+					Int(1608),
 				},
-				sample: IntLess(131),
+				sample: Int(131),
 			},
 			wantResult: nil,
 			wantOk:     false,
