@@ -25,7 +25,7 @@ func Maximum(items []Less) Less {
 }
 
 // Search ...
-func Search(items []Equal, sample Equal) (Equal, bool) {
+func SearchUniversal(items []Equal, sample Equal) (Equal, bool) {
 	for _, item := range items {
 		if item.Equal(sample) {
 			return item, true

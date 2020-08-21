@@ -91,7 +91,7 @@ func TestMaximum(t *testing.T) {
 	}
 }
 
-func TestSearch(t *testing.T) {
+func TestSearchUniversal(t *testing.T) {
 	type args struct {
 		items  []Equal
 		sample Equal
@@ -146,7 +146,7 @@ func TestSearch(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			gotResult, gotOk := Search(tt.args.items, tt.args.sample)
+			gotResult, gotOk := SearchUniversal(tt.args.items, tt.args.sample)
 
 			if !reflect.DeepEqual(gotResult, tt.wantResult) {
 				t.Errorf("Search() gotResult = %v, wantResult %v", gotResult, tt.wantResult)
