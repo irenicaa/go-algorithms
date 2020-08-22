@@ -39,14 +39,8 @@ func SearchUniversal(items []Equal, sample Equal) (Equal, bool) {
 func UniqueUniversal(items []Equal) []Equal {
 	newItems := []Equal{}
 	for _, item := range items {
-		isUnique := true
-		for _, compareItem := range newItems {
-			if item.Equal(compareItem) {
-				isUnique = false
-				break
-			}
-		}
-		if isUnique {
+		_, isDuplicate := SearchUniversal(newItems, item)
+		if !isDuplicate {
 			newItems = append(newItems, item)
 		}
 	}
