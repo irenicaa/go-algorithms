@@ -24,7 +24,7 @@ func Maximum(items []Less) Less {
 	return maximum
 }
 
-// Search ...
+// SearchUniversal ...
 func SearchUniversal(items []Equal, sample Equal) (Equal, bool) {
 	for _, item := range items {
 		if item.Equal(sample) {
@@ -33,4 +33,23 @@ func SearchUniversal(items []Equal, sample Equal) (Equal, bool) {
 	}
 
 	return nil, false
+}
+
+// UniqueUniversal ...
+func UniqueUniversal(items []Equal) []Equal {
+	newItems := []Equal{}
+	for _, item := range items {
+		isUnique := true
+		for _, compareItem := range newItems {
+			if item.Equal(compareItem) {
+				isUnique = false
+				break
+			}
+		}
+		if isUnique {
+			newItems = append(newItems, item)
+		}
+	}
+
+	return newItems
 }
