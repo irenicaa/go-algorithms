@@ -2,6 +2,7 @@ package algorithms
 
 import (
 	"reflect"
+	"sort"
 	"testing"
 )
 
@@ -247,7 +248,16 @@ func TestUniqueFast(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := UniqueFast(tt.args.items); !reflect.DeepEqual(got, tt.want) {
+			sort.Slice(tt.want, func(i int, j int) bool {
+				return tt.want[i].(int) < tt.want[j].(int)
+			})
+
+			got := UniqueFast(tt.args.items)
+			sort.Slice(got, func(i int, j int) bool {
+				return got[i].(int) < got[j].(int)
+			})
+
+			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("UniqueFast() = %v, want %v", got, tt.want)
 			}
 		})
