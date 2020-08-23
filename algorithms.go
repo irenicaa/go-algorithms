@@ -47,3 +47,21 @@ func UniqueUniversal(items []Equal) []Equal {
 
 	return newItems
 }
+
+// UniqueFast ...
+//
+// Items should be hashable.
+//
+func UniqueFast(items []interface{}) interface{} {
+	itemMap := map[interface{}]struct{}{}
+	for _, item := range items {
+		itemMap[item] = struct{}{}
+	}
+
+	newItems := []interface{}{}
+	for item := range itemMap {
+		newItems = append(newItems, item)
+	}
+
+	return newItems
+}
