@@ -157,3 +157,51 @@ func TestSearchUniversal(t *testing.T) {
 		})
 	}
 }
+
+func TestUniqueUniversal(t *testing.T) {
+	type args struct {
+		items []Equal
+	}
+
+	tests := []struct {
+		name string
+		args args
+		want []Equal
+	}{
+		{
+			name: "success",
+			args: args{
+				items: []Equal{
+					Int(19732),
+					Int(13),
+					Int(4197),
+					Int(23711),
+					Int(13),
+					Int(14740),
+					Int(22248),
+					Int(13),
+					Int(6601),
+					Int(1608),
+					Int(1608),
+				},
+			},
+			want: []Equal{
+				Int(19732),
+				Int(13),
+				Int(4197),
+				Int(23711),
+				Int(14740),
+				Int(22248),
+				Int(6601),
+				Int(1608),
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := UniqueUniversal(tt.args.items); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("UniqueUniversal() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
