@@ -52,7 +52,7 @@ func UniqueUniversal(items []Equal) []Equal {
 //
 // Items should be hashable.
 //
-func UniqueFast(items []interface{}) interface{} {
+func UniqueFast(items []interface{}) []interface{} {
 	itemMap := map[interface{}]struct{}{}
 	for _, item := range items {
 		itemMap[item] = struct{}{}

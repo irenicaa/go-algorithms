@@ -205,3 +205,51 @@ func TestUniqueUniversal(t *testing.T) {
 		})
 	}
 }
+
+func TestUniqueFast(t *testing.T) {
+	type args struct {
+		items []interface{}
+	}
+
+	tests := []struct {
+		name string
+		args args
+		want []interface{}
+	}{
+		{
+			name: "success",
+			args: args{
+				items: []interface{}{
+					19732,
+					13,
+					4197,
+					23711,
+					13,
+					14740,
+					22248,
+					13,
+					6601,
+					1608,
+					1608,
+				},
+			},
+			want: []interface{}{
+				19732,
+				13,
+				4197,
+				23711,
+				14740,
+				22248,
+				6601,
+				1608,
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := UniqueFast(tt.args.items); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("UniqueFast() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
