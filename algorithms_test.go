@@ -207,6 +207,61 @@ func TestUniqueUniversal(t *testing.T) {
 	}
 }
 
+func TestUniqueSorted(t *testing.T) {
+	type args struct {
+		items []Equal
+	}
+
+	tests := []struct {
+		name string
+		args args
+		want []Equal
+	}{
+		{
+			name: "success",
+			args: args{
+				items: []Equal{
+					Int(19732),
+					Int(13),
+					Int(4197),
+					Int(23711),
+					Int(13),
+					Int(14740),
+					Int(22248),
+					Int(13),
+					Int(6601),
+					Int(1608),
+					Int(1608),
+				},
+			},
+			want: []Equal{
+				Int(19732),
+				Int(13),
+				Int(4197),
+				Int(23711),
+				Int(14740),
+				Int(22248),
+				Int(6601),
+				Int(1608),
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			sort.Slice(tt.args.items, func(i int, j int) bool {
+				return tt.args.items[i].(Int) < tt.args.items[j].(Int)
+			})
+			sort.Slice(tt.want, func(i int, j int) bool {
+				return tt.want[i].(Int) < tt.want[j].(Int)
+			})
+
+			if got := UniqueSorted(tt.args.items); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("UniqueSorted() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func TestUniqueFast(t *testing.T) {
 	type args struct {
 		items []interface{}
