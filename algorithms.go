@@ -48,6 +48,18 @@ func UniqueUniversal(items []Equal) []Equal {
 	return newItems
 }
 
+// UniqueSorted ...
+func UniqueSorted(items []Equal) []Equal {
+	newItems := []Equal{}
+	for index, item := range items {
+		if index == 0 || !item.Equal(items[index-1]) {
+			newItems = append(newItems, item)
+		}
+	}
+
+	return newItems
+}
+
 // UniqueFast ...
 //
 // Items should be hashable.
