@@ -159,6 +159,77 @@ func TestSearchUniversal(t *testing.T) {
 	}
 }
 
+func TestSearchSorted(t *testing.T) {
+	type args struct {
+		items  []Less
+		sample Less
+	}
+
+	tests := []struct {
+		name       string
+		args       args
+		wantResult Less
+		wantOk     bool
+	}{
+		{
+			name: "found",
+			args: args{
+				items: []Less{
+					Int(19732),
+					Int(13),
+					Int(4197),
+					Int(23711),
+					Int(23073),
+					Int(14740),
+					Int(22248),
+					Int(6874),
+					Int(6601),
+					Int(1608),
+				},
+				sample: Int(13),
+			},
+			wantResult: Int(13),
+			wantOk:     true,
+		},
+		{
+			name: "not found",
+			args: args{
+				items: []Less{
+					Int(19732),
+					Int(13),
+					Int(4197),
+					Int(23711),
+					Int(23073),
+					Int(14740),
+					Int(22248),
+					Int(6874),
+					Int(6601),
+					Int(1608),
+				},
+				sample: Int(131),
+			},
+			wantResult: nil,
+			wantOk:     false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			sort.Slice(tt.args.items, func(i int, j int) bool {
+				return tt.args.items[i].(Int) < tt.args.items[j].(Int)
+			})
+
+			gotResult, gotOk := SearchSorted(tt.args.items, tt.args.sample)
+
+			if !reflect.DeepEqual(gotResult, tt.wantResult) {
+				t.Errorf("Search() gotResult = %v, wantResult %v", gotResult, tt.wantResult)
+			}
+			if gotOk != tt.wantOk {
+				t.Errorf("Search() gotOk = %v, wantOk %v", gotOk, tt.wantOk)
+			}
+		})
+	}
+}
+
 func TestUniqueUniversal(t *testing.T) {
 	type args struct {
 		items []Equal
