@@ -172,7 +172,16 @@ func TestSearchSorted(t *testing.T) {
 		wantOk     bool
 	}{
 		{
-			name: "found",
+			name: "empty",
+			args: args{
+				items:  []Less{},
+				sample: Int(6874),
+			},
+			wantResult: nil,
+			wantOk:     false,
+		},
+		{
+			name: "found smallest",
 			args: args{
 				items: []Less{
 					Int(19732),
@@ -192,7 +201,7 @@ func TestSearchSorted(t *testing.T) {
 			wantOk:     true,
 		},
 		{
-			name: "not found",
+			name: "found in the middle",
 			args: args{
 				items: []Less{
 					Int(19732),
@@ -206,7 +215,87 @@ func TestSearchSorted(t *testing.T) {
 					Int(6601),
 					Int(1608),
 				},
-				sample: Int(131),
+				sample: Int(6874),
+			},
+			wantResult: Int(6874),
+			wantOk:     true,
+		},
+		{
+			name: "found largest",
+			args: args{
+				items: []Less{
+					Int(19732),
+					Int(13),
+					Int(4197),
+					Int(23711),
+					Int(23073),
+					Int(14740),
+					Int(22248),
+					Int(6874),
+					Int(6601),
+					Int(1608),
+				},
+				sample: Int(23711),
+			},
+			wantResult: Int(23711),
+			wantOk:     true,
+		},
+		{
+			name: "not found too small",
+			args: args{
+				items: []Less{
+					Int(19732),
+					Int(13),
+					Int(4197),
+					Int(23711),
+					Int(23073),
+					Int(14740),
+					Int(22248),
+					Int(6874),
+					Int(6601),
+					Int(1608),
+				},
+				sample: Int(12),
+			},
+			wantResult: nil,
+			wantOk:     false,
+		},
+		{
+			name: "not found in the middle",
+			args: args{
+				items: []Less{
+					Int(19732),
+					Int(13),
+					Int(4197),
+					Int(23711),
+					Int(23073),
+					Int(14740),
+					Int(22248),
+					Int(6874),
+					Int(6601),
+					Int(1608),
+				},
+				sample: Int(10000),
+			},
+			wantResult: nil,
+			wantOk:     false,
+		},
+		{
+			name: "not found too large",
+			args: args{
+				items: []Less{
+					Int(19732),
+					Int(13),
+					Int(4197),
+					Int(23711),
+					Int(23073),
+					Int(14740),
+					Int(22248),
+					Int(6874),
+					Int(6601),
+					Int(1608),
+				},
+				sample: Int(23712),
 			},
 			wantResult: nil,
 			wantOk:     false,
