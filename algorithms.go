@@ -39,7 +39,7 @@ func SearchUniversal(items []Equal, sample Equal) (Equal, bool) {
 func SearchSorted(items []Less, sample Less) (Less, bool) {
 	start, end := 0, len(items)-1
 	for start <= end {
-		middle := (start + end) / 2
+		middle := (end-start)/2 + start
 		if sample.Less(items[middle]) {
 			end = middle - 1
 		} else if items[middle].Less(sample) {
