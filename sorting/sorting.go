@@ -4,16 +4,19 @@ import algorithms "github.com/irenicaa/go-algorithms"
 
 // BubbleSort ...
 func BubbleSort(items []algorithms.Less) {
-	for j := range items {
-		wasSwapped := false
-		for i := 0; i < len(items)-1-j; i++ {
+	end := len(items) - 1
+	for {
+		wasSwapped, lastSwappedIndex := false, 0
+		for i := 0; i < end; i++ {
 			if items[i+1].Less(items[i]) {
 				items[i+1], items[i] = items[i], items[i+1]
-				wasSwapped = true
+				wasSwapped, lastSwappedIndex = true, i
 			}
 		}
 		if !wasSwapped {
 			return
 		}
+
+		end = lastSwappedIndex
 	}
 }
