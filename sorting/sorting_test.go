@@ -173,9 +173,15 @@ func TestSorting(t *testing.T) {
 	for _, function := range functions {
 		for _, tt := range tests {
 			t.Run(function.name+"/"+tt.name, func(t *testing.T) {
-				function.handler(tt.args.items)
-				if !reflect.DeepEqual(tt.args.items, tt.want) {
-					t.Errorf("BubbleSort() = %v, want %v", tt.args.items, tt.want)
+				items := []algorithms.Less{}
+				for _, item := range tt.args.items {
+					items = append(items, item)
+				}
+
+				function.handler(items)
+
+				if !reflect.DeepEqual(items, tt.want) {
+					t.Errorf("%s = %v, want %v", function.name, items, tt.want)
 				}
 			})
 		}
