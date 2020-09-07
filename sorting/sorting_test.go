@@ -26,6 +26,10 @@ func TestSorting(t *testing.T) {
 			name:    "BubleSort",
 			handler: BubbleSort,
 		},
+		{
+			name:    "CocktailSort",
+			handler: CocktailSort,
+		},
 	}
 
 	tests := []struct {
