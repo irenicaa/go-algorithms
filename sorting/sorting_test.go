@@ -13,9 +13,19 @@ func (number Int) Less(other interface{}) bool {
 	return number < other.(Int)
 }
 
-func TestBubbleSort(t *testing.T) {
+func TestSorting(t *testing.T) {
 	type args struct {
 		items []algorithms.Less
+	}
+
+	functions := []struct {
+		name    string
+		handler func(items []algorithms.Less)
+	}{
+		{
+			name:    "BubleSort",
+			handler: BubbleSort,
+		},
 	}
 
 	tests := []struct {
@@ -155,13 +165,15 @@ func TestBubbleSort(t *testing.T) {
 			},
 		},
 	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			BubbleSort(tt.args.items)
 
-			if !reflect.DeepEqual(tt.args.items, tt.want) {
-				t.Errorf("BubbleSort() = %v, want %v", tt.args.items, tt.want)
-			}
-		})
+	for _, function := range functions {
+		for _, tt := range tests {
+			t.Run(function.name+"/"+tt.name, func(t *testing.T) {
+				function.handler(tt.args.items)
+				if !reflect.DeepEqual(tt.args.items, tt.want) {
+					t.Errorf("BubbleSort() = %v, want %v", tt.args.items, tt.want)
+				}
+			})
+		}
 	}
 }
