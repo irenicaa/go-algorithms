@@ -74,3 +74,38 @@ func TestSet_Remove(t *testing.T) {
 		})
 	}
 }
+
+func TestSet_Contains(t *testing.T) {
+	type args struct {
+		item interface{}
+	}
+
+	tests := []struct {
+		name string
+		set  Set
+		args args
+		want bool
+	}{
+		{
+			name: "nonexistent",
+			set:  Set{"one": {}, "two": {}},
+			args: args{item: "three"},
+			want: false,
+		},
+		{
+			name: "existent",
+			set:  Set{"one": {}, "two": {}},
+			args: args{item: "two"},
+			want: true,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := tt.set.Contains(tt.args.item)
+
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("got %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

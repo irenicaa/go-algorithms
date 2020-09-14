@@ -12,3 +12,9 @@ func (set Set) Add(item interface{}) {
 func (set Set) Remove(item interface{}) {
 	delete(set, item)
 }
+
+// Contains ...
+func (set Set) Contains(item interface{}) bool {
+	_, ok := set[item]
+	return ok
+}
