@@ -109,3 +109,38 @@ func TestSet_Contains(t *testing.T) {
 		})
 	}
 }
+
+func TestNewSet(t *testing.T) {
+	type args struct {
+		items []interface{}
+	}
+
+	tests := []struct {
+		name string
+		args args
+		want Set
+	}{
+		{
+			name: "empty",
+			args: args{items: []interface{}{}},
+			want: Set{},
+		},
+		{
+			name: "unique items",
+			args: args{items: []interface{}{"one", "two"}},
+			want: Set{"one": {}, "two": {}},
+		},
+		{
+			name: "duplicate items",
+			args: args{items: []interface{}{"one", "one"}},
+			want: Set{"one": {}},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := NewSet(tt.args.items...); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("NewSet() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
