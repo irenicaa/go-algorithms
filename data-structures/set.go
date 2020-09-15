@@ -44,26 +44,26 @@ func (set Set) Union(other Set) Set {
 
 // Intersection ...
 func (set Set) Intersection(other Set) Set {
-	union := Set{}
+	intersection := Set{}
 	for item := range set {
 		ok := other.Contains(item)
 		if ok {
-			union.Add(item)
+			intersection.Add(item)
 		}
 	}
 
-	return union
+	return intersection
 }
 
 // Difference ...
 func (set Set) Difference(other Set) Set {
-	union := Set{}
+	difference := Set{}
 	for item := range set {
 		ok := other.Contains(item)
 		if !ok {
-			union.Add(item)
+			difference.Add(item)
 		}
 	}
 
-	return union
+	return difference
 }

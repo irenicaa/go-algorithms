@@ -149,6 +149,7 @@ func TestSet_Union(t *testing.T) {
 	type args struct {
 		other Set
 	}
+
 	tests := []struct {
 		name string
 		set  Set
@@ -193,6 +194,7 @@ func TestSet_Intersection(t *testing.T) {
 	type args struct {
 		other Set
 	}
+
 	tests := []struct {
 		name string
 		set  Set
@@ -231,6 +233,7 @@ func TestSet_Difference(t *testing.T) {
 	type args struct {
 		other Set
 	}
+
 	tests := []struct {
 		name string
 		set  Set
