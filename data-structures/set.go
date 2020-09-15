@@ -41,3 +41,16 @@ func (set Set) Union(other Set) Set {
 
 	return union
 }
+
+// Intersection ...
+func (set Set) Intersection(other Set) Set {
+	union := Set{}
+	for item := range set {
+		ok := other.Contains(item)
+		if ok {
+			union.Add(item)
+		}
+	}
+
+	return union
+}

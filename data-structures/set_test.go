@@ -188,3 +188,41 @@ func TestSet_Union(t *testing.T) {
 		})
 	}
 }
+
+func TestSet_Intersection(t *testing.T) {
+	type args struct {
+		other Set
+	}
+	tests := []struct {
+		name string
+		set  Set
+		args args
+		want Set
+	}{
+		{
+			name: "both are empty",
+			set:  Set{},
+			args: args{other: Set{}},
+			want: Set{},
+		},
+		{
+			name: "nobody is empty (with intersection)",
+			set:  Set{"one": {}, "two": {}},
+			args: args{other: Set{"two": {}, "three": {}}},
+			want: Set{"two": {}},
+		},
+		{
+			name: "nobody is empty (without intersection)",
+			set:  Set{"one": {}, "two": {}},
+			args: args{other: Set{"three": {}, "four": {}}},
+			want: Set{},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := tt.set.Intersection(tt.args.other); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Set.Intersection() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
