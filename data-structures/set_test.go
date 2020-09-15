@@ -226,3 +226,47 @@ func TestSet_Intersection(t *testing.T) {
 		})
 	}
 }
+
+func TestSet_Difference(t *testing.T) {
+	type args struct {
+		other Set
+	}
+	tests := []struct {
+		name string
+		set  Set
+		args args
+		want Set
+	}{
+		{
+			name: "both are empty",
+			set:  Set{},
+			args: args{other: Set{}},
+			want: Set{},
+		},
+		{
+			name: "nobody is empty (with intersection)",
+			set:  Set{"one": {}, "two": {}},
+			args: args{other: Set{"two": {}, "three": {}}},
+			want: Set{"one": {}},
+		},
+		{
+			name: "nobody is empty (without intersection)",
+			set:  Set{"one": {}, "two": {}},
+			args: args{other: Set{"three": {}, "four": {}}},
+			want: Set{"one": {}, "two": {}},
+		},
+		{
+			name: "nobody is empty (same)",
+			set:  Set{"one": {}, "two": {}},
+			args: args{other: Set{"one": {}, "two": {}}},
+			want: Set{},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := tt.set.Difference(tt.args.other); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Set.Difference() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

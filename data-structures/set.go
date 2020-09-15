@@ -54,3 +54,16 @@ func (set Set) Intersection(other Set) Set {
 
 	return union
 }
+
+// Difference ...
+func (set Set) Difference(other Set) Set {
+	union := Set{}
+	for item := range set {
+		ok := other.Contains(item)
+		if !ok {
+			union.Add(item)
+		}
+	}
+
+	return union
+}
