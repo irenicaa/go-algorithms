@@ -144,3 +144,47 @@ func TestSet_Remove(t *testing.T) {
 		})
 	}
 }
+
+func TestSet_Union(t *testing.T) {
+	type args struct {
+		other Set
+	}
+	tests := []struct {
+		name string
+		set  Set
+		args args
+		want Set
+	}{
+		{
+			name: "both are empty",
+			set:  Set{},
+			args: args{other: Set{}},
+			want: Set{},
+		},
+		{
+			name: "first is empty",
+			set:  Set{},
+			args: args{other: Set{"one": {}, "two": {}}},
+			want: Set{"one": {}, "two": {}},
+		},
+		{
+			name: "second is empty",
+			set:  Set{"one": {}, "two": {}},
+			args: args{other: Set{}},
+			want: Set{"one": {}, "two": {}},
+		},
+		{
+			name: "nobody is empty",
+			set:  Set{"one": {}, "two": {}},
+			args: args{other: Set{"two": {}, "three": {}}},
+			want: Set{"one": {}, "two": {}, "three": {}},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := tt.set.Union(tt.args.other); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Set.Union() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

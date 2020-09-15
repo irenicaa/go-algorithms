@@ -28,3 +28,16 @@ func (set Set) Add(item interface{}) {
 func (set Set) Remove(item interface{}) {
 	delete(set, item)
 }
+
+// Union ...
+func (set Set) Union(other Set) Set {
+	union := Set{}
+	for item := range set {
+		union.Add(item)
+	}
+	for item := range other {
+		union.Add(item)
+	}
+
+	return union
+}
