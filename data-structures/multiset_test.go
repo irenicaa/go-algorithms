@@ -9,6 +9,7 @@ func TestMultiset_Add(t *testing.T) {
 	type args struct {
 		item interface{}
 	}
+
 	tests := []struct {
 		name    string
 		set     Multiset
@@ -31,6 +32,47 @@ func TestMultiset_Add(t *testing.T) {
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
 			tt.set.Add(tt.args.item)
+
+			if !reflect.DeepEqual(tt.set, tt.wantSet) {
+				t.Errorf("got %v, want %v", tt.set, tt.wantSet)
+			}
+		})
+	}
+}
+
+func TestMultiset_Remove(t *testing.T) {
+	type args struct {
+		item interface{}
+	}
+
+	tests := []struct {
+		name    string
+		set     Multiset
+		args    args
+		wantSet Multiset
+	}{
+		{
+			name:    "nonexistent",
+			set:     Multiset{"one": 2, "two": 3},
+			args:    args{item: "three"},
+			wantSet: Multiset{"one": 2, "two": 3},
+		},
+		{
+			name:    "existent (more than one)",
+			set:     Multiset{"one": 2, "two": 3},
+			args:    args{item: "two"},
+			wantSet: Multiset{"one": 2, "two": 2},
+		},
+		{
+			name:    "existent (one)",
+			set:     Multiset{"one": 2, "two": 1},
+			args:    args{item: "two"},
+			wantSet: Multiset{"one": 2},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			tt.set.Remove(tt.args.item)
 
 			if !reflect.DeepEqual(tt.set, tt.wantSet) {
 				t.Errorf("got %v, want %v", tt.set, tt.wantSet)
