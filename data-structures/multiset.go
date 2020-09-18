@@ -15,3 +15,13 @@ func (set Multiset) Remove(item interface{}) {
 		delete(set, item)
 	}
 }
+
+// NewMultiset ...
+func NewMultiset(items ...interface{}) Multiset {
+	set := Multiset{}
+	for _, item := range items {
+		set.Add(item)
+	}
+
+	return set
+}
