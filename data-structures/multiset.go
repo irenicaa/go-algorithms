@@ -3,6 +3,16 @@ package datastructures
 // Multiset ...
 type Multiset map[interface{}]int
 
+// NewMultiset ...
+func NewMultiset(items ...interface{}) Multiset {
+	set := Multiset{}
+	for _, item := range items {
+		set.Add(item)
+	}
+
+	return set
+}
+
 // Add ...
 func (set Multiset) Add(item interface{}) {
 	set[item]++
@@ -14,14 +24,4 @@ func (set Multiset) Remove(item interface{}) {
 	if set[item] < 1 {
 		delete(set, item)
 	}
-}
-
-// NewMultiset ...
-func NewMultiset(items ...interface{}) Multiset {
-	set := Multiset{}
-	for _, item := range items {
-		set.Add(item)
-	}
-
-	return set
 }
