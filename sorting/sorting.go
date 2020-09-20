@@ -37,6 +37,29 @@ func CocktailSort(items []algorithms.Less) {
 	}
 }
 
+// CombSort ...
+func CombSort(items []algorithms.Less) {
+	gap := len(items)
+	for {
+		const shrinkFactor = 1.3
+		gap = int(float64(gap) / shrinkFactor)
+		if gap < 1 {
+			gap = 1
+		}
+
+		wasSwapped := false
+		for i := 0; i < len(items)-gap; i++ {
+			if items[i+gap].Less(items[i]) {
+				items[i+gap], items[i] = items[i], items[i+gap]
+				wasSwapped = true
+			}
+		}
+		if gap == 1 && !wasSwapped {
+			return
+		}
+	}
+}
+
 func bubbleSortPass(items []algorithms.Less, start int, end int, step int) int {
 	if len(items) == 0 {
 		return wasNotSwapped

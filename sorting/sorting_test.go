@@ -30,6 +30,10 @@ func TestSorting(t *testing.T) {
 			name:    "CocktailSort",
 			handler: CocktailSort,
 		},
+		{
+			name:    "CombSort",
+			handler: CombSort,
+		},
 	}
 
 	tests := []struct {
