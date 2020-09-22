@@ -69,13 +69,7 @@ func (set Set) Intersection(other Set) Set {
 
 // Difference ...
 func (set Set) Difference(other Set) Set {
-	difference := Set{}
-	for item := range set {
-		ok := other.Contains(item)
-		if !ok {
-			difference.Add(item)
-		}
-	}
-
-	return difference
+	return set.Filter(func(item interface{}) bool {
+		return !other.Contains(item)
+	})
 }
