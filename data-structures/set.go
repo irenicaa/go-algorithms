@@ -29,6 +29,18 @@ func (set Set) Remove(item interface{}) {
 	delete(set, item)
 }
 
+// Filter ...
+func (set Set) Filter(filter func(item interface{}) bool) Set {
+	newSet := Set{}
+	for item := range set {
+		if filter(item) {
+			newSet.Add(item)
+		}
+	}
+
+	return newSet
+}
+
 // Union ...
 func (set Set) Union(other Set) Set {
 	union := Set{}
