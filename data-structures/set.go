@@ -56,15 +56,7 @@ func (set Set) Union(other Set) Set {
 
 // Intersection ...
 func (set Set) Intersection(other Set) Set {
-	intersection := Set{}
-	for item := range set {
-		ok := other.Contains(item)
-		if ok {
-			intersection.Add(item)
-		}
-	}
-
-	return intersection
+	return set.Filter(other.Contains)
 }
 
 // Difference ...
