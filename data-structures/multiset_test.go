@@ -40,6 +40,45 @@ func TestNewMultiset(t *testing.T) {
 	}
 }
 
+func TestMultiset_Contains(t *testing.T) {
+	type args struct {
+		item interface{}
+	}
+
+	tests := []struct {
+		name string
+		set  Multiset
+		args args
+		want bool
+	}{
+		{
+			name: "nonexistent",
+			set:  Multiset{"one": 2, "two": 3},
+			args: args{item: "three"},
+			want: false,
+		},
+		{
+			name: "existent (with a nonzero value)",
+			set:  Multiset{"one": 2, "two": 3},
+			args: args{item: "two"},
+			want: true,
+		},
+		{
+			name: "existent (with a zero value)",
+			set:  Multiset{"one": 2, "two": 0},
+			args: args{item: "two"},
+			want: false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := tt.set.Contains(tt.args.item); got != tt.want {
+				t.Errorf("Multiset.Contains() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
 func TestMultiset_Add(t *testing.T) {
 	type args struct {
 		item interface{}

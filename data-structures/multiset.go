@@ -13,6 +13,11 @@ func NewMultiset(items ...interface{}) Multiset {
 	return set
 }
 
+// Contains ...
+func (set Multiset) Contains(item interface{}) bool {
+	return set[item] > 0
+}
+
 // Add ...
 func (set Multiset) Add(item interface{}) {
 	set[item]++
