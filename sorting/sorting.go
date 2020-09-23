@@ -60,6 +60,21 @@ func CombSort(items []algorithms.Less) {
 	}
 }
 
+// InsertionSort ...
+func InsertionSort(items []algorithms.Less) {
+	for i := 1; i < len(items); i++ {
+		key := items[i]
+
+		j := i - 1
+		for j >= 0 && key.Less(items[j]) {
+			items[j+1] = items[j]
+			j--
+		}
+
+		items[j+1] = key
+	}
+}
+
 func bubbleSortPass(items []algorithms.Less, start int, end int, step int) int {
 	if len(items) == 0 {
 		return wasNotSwapped
