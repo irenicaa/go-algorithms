@@ -62,33 +62,13 @@ func CombSort(items []algorithms.Less) {
 
 // InsertionSort ...
 func InsertionSort(items []algorithms.Less) {
-	for i := 1; i < len(items); i++ {
-		key := items[i]
-
-		insertionIndex := i
-		for insertionIndex >= 1 && key.Less(items[insertionIndex-1]) {
-			items[insertionIndex] = items[insertionIndex-1]
-			insertionIndex--
-		}
-
-		items[insertionIndex] = key
-	}
+	insertionSortPass(items, 1)
 }
 
 // ShellSort ...
 func ShellSort(items []algorithms.Less) {
 	for gap := len(items) / 2; gap > 0; gap /= 2 {
-		for i := gap; i < len(items); i++ {
-			key := items[i]
-
-			insertionIndex := i
-			for insertionIndex >= gap && key.Less(items[insertionIndex-gap]) {
-				items[insertionIndex] = items[insertionIndex-gap]
-				insertionIndex -= gap
-			}
-
-			items[insertionIndex] = key
-		}
+		insertionSortPass(items, gap)
 	}
 }
 
@@ -106,4 +86,18 @@ func bubbleSortPass(items []algorithms.Less, start int, end int, step int) int {
 	}
 
 	return lastSwappedIndex
+}
+
+func insertionSortPass(items []algorithms.Less, gap int) {
+	for i := gap; i < len(items); i++ {
+		key := items[i]
+
+		insertionIndex := i
+		for insertionIndex >= gap && key.Less(items[insertionIndex-gap]) {
+			items[insertionIndex] = items[insertionIndex-gap]
+			insertionIndex -= gap
+		}
+
+		items[insertionIndex] = key
+	}
 }
