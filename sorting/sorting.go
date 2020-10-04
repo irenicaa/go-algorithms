@@ -65,13 +65,13 @@ func InsertionSort(items []algorithms.Less) {
 	for i := 1; i < len(items); i++ {
 		key := items[i]
 
-		j := i - 1
-		for j >= 0 && key.Less(items[j]) {
-			items[j+1] = items[j]
-			j--
+		insertionIndex := i
+		for insertionIndex >= 1 && key.Less(items[insertionIndex-1]) {
+			items[insertionIndex] = items[insertionIndex-1]
+			insertionIndex--
 		}
 
-		items[j+1] = key
+		items[insertionIndex] = key
 	}
 }
 
