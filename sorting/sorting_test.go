@@ -38,6 +38,10 @@ func TestSorting(t *testing.T) {
 			name:    "InsertionSort",
 			handler: InsertionSort,
 		},
+		{
+			name:    "ShellSort",
+			handler: ShellSort,
+		},
 	}
 
 	tests := []struct {

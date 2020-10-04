@@ -75,6 +75,23 @@ func InsertionSort(items []algorithms.Less) {
 	}
 }
 
+// ShellSort ...
+func ShellSort(items []algorithms.Less) {
+	for gap := len(items) / 2; gap > 0; gap /= 2 {
+		for i := gap; i < len(items); i++ {
+			key := items[i]
+
+			insertionIndex := i
+			for insertionIndex >= gap && key.Less(items[insertionIndex-gap]) {
+				items[insertionIndex] = items[insertionIndex-gap]
+				insertionIndex -= gap
+			}
+
+			items[insertionIndex] = key
+		}
+	}
+}
+
 func bubbleSortPass(items []algorithms.Less, start int, end int, step int) int {
 	if len(items) == 0 {
 		return wasNotSwapped
