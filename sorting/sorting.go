@@ -10,7 +10,7 @@ const backwardStep = -1
 func BubbleSort(items []algorithms.Less) {
 	end := len(items) - 1
 	for {
-		lastSwappedIndex := bubbleSortPass(items, 0, end, forwardStep)
+		lastSwappedIndex := bubbleSortPass(items, 0, end, forwardStep, 1)
 		if lastSwappedIndex == wasNotSwapped {
 			return
 		}
@@ -23,13 +23,13 @@ func BubbleSort(items []algorithms.Less) {
 func CocktailSort(items []algorithms.Less) {
 	start, end := 0, len(items)-1
 	for {
-		lastSwappedIndex := bubbleSortPass(items, start, end, forwardStep)
+		lastSwappedIndex := bubbleSortPass(items, start, end, forwardStep, 1)
 		if lastSwappedIndex == wasNotSwapped {
 			return
 		}
 		end = lastSwappedIndex
 
-		lastSwappedIndex = bubbleSortPass(items, end-1, start-1, backwardStep)
+		lastSwappedIndex = bubbleSortPass(items, end-1, start-1, backwardStep, 1)
 		if lastSwappedIndex == wasNotSwapped {
 			return
 		}
@@ -47,14 +47,8 @@ func CombSort(items []algorithms.Less) {
 			gap = 1
 		}
 
-		wasSwapped := false
-		for i := 0; i < len(items)-gap; i++ {
-			if items[i+gap].Less(items[i]) {
-				items[i+gap], items[i] = items[i], items[i+gap]
-				wasSwapped = true
-			}
-		}
-		if gap == 1 && !wasSwapped {
+		lastSwappedIndex := bubbleSortPass(items, 0, len(items)-gap, forwardStep, gap)
+		if gap == 1 && lastSwappedIndex == wasNotSwapped {
 			return
 		}
 	}
@@ -72,15 +66,21 @@ func ShellSort(items []algorithms.Less) {
 	}
 }
 
-func bubbleSortPass(items []algorithms.Less, start int, end int, step int) int {
+func bubbleSortPass(
+	items []algorithms.Less,
+	start int,
+	end int,
+	step int,
+	gap int,
+) int {
 	if len(items) == 0 {
 		return wasNotSwapped
 	}
 
 	lastSwappedIndex := wasNotSwapped
 	for i := start; i != end; i += step {
-		if items[i+1].Less(items[i]) {
-			items[i+1], items[i] = items[i], items[i+1]
+		if items[i+gap].Less(items[i]) {
+			items[i+gap], items[i] = items[i], items[i+gap]
 			lastSwappedIndex = i
 		}
 	}
