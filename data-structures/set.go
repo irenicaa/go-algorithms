@@ -32,12 +32,8 @@ func (set Set) Remove(item interface{}) {
 // Union ...
 func (set Set) Union(other Set) Set {
 	union := Set{}
-	for item := range set {
-		union.Add(item)
-	}
-	for item := range other {
-		union.Add(item)
-	}
+	union.unionInPlace(set)
+	union.unionInPlace(other)
 
 	return union
 }
@@ -52,6 +48,12 @@ func (set Set) Difference(other Set) Set {
 	return set.filter(func(item interface{}) bool {
 		return !other.Contains(item)
 	})
+}
+
+func (set Set) unionInPlace(other Set) {
+	for item := range other {
+		set.Add(item)
+	}
 }
 
 func (set Set) filter(filter func(item interface{}) bool) Set {
