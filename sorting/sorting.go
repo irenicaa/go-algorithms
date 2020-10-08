@@ -66,6 +66,20 @@ func ShellSort(items []algorithms.Less) {
 	}
 }
 
+// SelectionSort ...
+func SelectionSort(items []algorithms.Less) {
+	for i := 0; i < len(items); i++ {
+		minimumIndex := i
+		for j := i + 1; j < len(items); j++ {
+			if items[j].Less(items[minimumIndex]) {
+				minimumIndex = j
+			}
+		}
+
+		items[i], items[minimumIndex] = items[minimumIndex], items[i]
+	}
+}
+
 func bubbleSortPass(
 	items []algorithms.Less,
 	start int,
