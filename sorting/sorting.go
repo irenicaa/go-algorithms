@@ -80,6 +80,18 @@ func SelectionSort(items []algorithms.Less) {
 	}
 }
 
+// MergeSort ...
+func MergeSort(items []algorithms.Less) []algorithms.Less {
+	if len(items) <= 1 {
+		return items
+	}
+
+	middle := len(items) / 2
+	left := MergeSort(items[:middle])
+	right := MergeSort(items[middle:])
+	return algorithms.MergeSorted(left, right)
+}
+
 func bubbleSortPass(
 	items []algorithms.Less,
 	start int,

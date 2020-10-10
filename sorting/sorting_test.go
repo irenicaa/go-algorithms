@@ -46,6 +46,15 @@ func TestSorting(t *testing.T) {
 			name:    "SelectionSort",
 			handler: SelectionSort,
 		},
+		{
+			name: "MergeSort",
+			handler: func(items []algorithms.Less) {
+				sortedItems := MergeSort(items)
+				for index, item := range sortedItems {
+					items[index] = item
+				}
+			},
+		},
 	}
 
 	tests := []struct {
