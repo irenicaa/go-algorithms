@@ -478,3 +478,105 @@ func TestUniqueFast(t *testing.T) {
 		})
 	}
 }
+
+func TestMergeSorted(t *testing.T) {
+	type args struct {
+		left  []Less
+		right []Less
+	}
+
+	tests := []struct {
+		name string
+		args args
+		want []Less
+	}{
+		{
+			name: "empty",
+			args: args{left: []Less{}, right: []Less{}},
+			want: []Less{},
+		},
+		{
+			name: "left is longer",
+			args: args{
+				left:  []Less{Int(1), Int(3), Int(5), Int(10), Int(11)},
+				right: []Less{Int(2), Int(7), Int(8), Int(20)},
+			},
+			want: []Less{
+				Int(1),
+				Int(2),
+				Int(3),
+				Int(5),
+				Int(7),
+				Int(8),
+				Int(10),
+				Int(11),
+				Int(20),
+			},
+		},
+		{
+			name: "right is longer",
+			args: args{
+				left:  []Less{Int(2), Int(7), Int(8), Int(20)},
+				right: []Less{Int(1), Int(3), Int(5), Int(10), Int(11)},
+			},
+			want: []Less{
+				Int(1),
+				Int(2),
+				Int(3),
+				Int(5),
+				Int(7),
+				Int(8),
+				Int(10),
+				Int(11),
+				Int(20),
+			},
+		},
+		{
+			name: "equal in length (without duplicates)",
+			args: args{
+				left:  []Less{Int(2), Int(7), Int(8), Int(12), Int(20)},
+				right: []Less{Int(1), Int(3), Int(5), Int(10), Int(11)},
+			},
+			want: []Less{
+				Int(1),
+				Int(2),
+				Int(3),
+				Int(5),
+				Int(7),
+				Int(8),
+				Int(10),
+				Int(11),
+				Int(12),
+				Int(20),
+			},
+		},
+		{
+			name: "equal in length (with duplicates)",
+			args: args{
+				left:  []Less{Int(2), Int(5), Int(7), Int(8), Int(12), Int(20)},
+				right: []Less{Int(1), Int(3), Int(5), Int(7), Int(10), Int(11)},
+			},
+			want: []Less{
+				Int(1),
+				Int(2),
+				Int(3),
+				Int(5),
+				Int(5),
+				Int(7),
+				Int(7),
+				Int(8),
+				Int(10),
+				Int(11),
+				Int(12),
+				Int(20),
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := MergeSorted(tt.args.left, tt.args.right); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("MergeSorted() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
