@@ -65,29 +65,6 @@ func UniqueUniversal(items []Equal) []Equal {
 	return newItems
 }
 
-// MergeSorted ...
-func MergeSorted(left []Less, right []Less) []Less {
-	result := []Less{}
-	i, j := 0, 0
-	for i < len(left) && j < len(right) {
-		if left[i].Less(right[j]) {
-			result = append(result, left[i])
-			i++
-		} else {
-			result = append(result, right[j])
-			j++
-		}
-	}
-	for _, item := range left[i:] {
-		result = append(result, item)
-	}
-	for _, item := range right[j:] {
-		result = append(result, item)
-	}
-
-	return result
-}
-
 // UniqueSorted ...
 func UniqueSorted(items []Equal) []Equal {
 	newItems := []Equal{}
@@ -116,4 +93,27 @@ func UniqueFast(items []interface{}) []interface{} {
 	}
 
 	return newItems
+}
+
+// MergeSorted ...
+func MergeSorted(left []Less, right []Less) []Less {
+	result := []Less{}
+	i, j := 0, 0
+	for i < len(left) && j < len(right) {
+		if left[i].Less(right[j]) {
+			result = append(result, left[i])
+			i++
+		} else {
+			result = append(result, right[j])
+			j++
+		}
+	}
+	for _, item := range left[i:] {
+		result = append(result, item)
+	}
+	for _, item := range right[j:] {
+		result = append(result, item)
+	}
+
+	return result
 }
