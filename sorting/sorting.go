@@ -92,6 +92,36 @@ func MergeSort(items []algorithms.Less) []algorithms.Less {
 	return algorithms.MergeSorted(left, right)
 }
 
+// QuickSort ...
+func QuickSort(items []algorithms.Less) []algorithms.Less {
+	if len(items) <= 1 {
+		return items
+	}
+
+	pivot := items[0]
+	items = items[1:]
+
+	left := []algorithms.Less{}
+	right := []algorithms.Less{}
+	for _, item := range items {
+		if item.Less(pivot) {
+			left = append(left, item)
+		} else {
+			right = append(right, item)
+		}
+	}
+
+	left = QuickSort(left)
+	right = QuickSort(right)
+
+	result := []algorithms.Less{}
+	result = append(result, left...)
+	result = append(result, pivot)
+	result = append(result, right...)
+
+	return result
+}
+
 func bubbleSortPass(
 	items []algorithms.Less,
 	start int,

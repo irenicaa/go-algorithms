@@ -55,6 +55,15 @@ func TestSorting(t *testing.T) {
 				}
 			},
 		},
+		{
+			name: "QuickSort",
+			handler: func(items []algorithms.Less) {
+				sortedItems := QuickSort(items)
+				for index, item := range sortedItems {
+					items[index] = item
+				}
+			},
+		},
 	}
 
 	tests := []struct {
