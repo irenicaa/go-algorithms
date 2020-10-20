@@ -7,18 +7,20 @@ type DynamicArray struct {
 
 // Get ...
 func (array DynamicArray) Get(index int) interface{} {
-	if index < 0 && index >= len(array.items) {
-		panic("datastructures.DynamicArray.Get: index out range")
-	}
+	array.checkIndex(index)
 
 	return array.items[index]
 }
 
 // Set ...
 func (array DynamicArray) Set(index int, item interface{}) {
-	if index < 0 && index >= len(array.items) {
-		panic("datastructures.DynamicArray.Set: index out range")
-	}
+	array.checkIndex(index)
 
 	array.items[index] = item
+}
+
+func (array DynamicArray) checkIndex(index int) {
+	if index < 0 && index >= len(array.items) {
+		panic("datastructures.DynamicArray: index out range")
+	}
 }
