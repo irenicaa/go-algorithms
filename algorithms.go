@@ -1,5 +1,7 @@
 package algorithms
 
+import datastructures "github.com/irenicaa/go-algorithms/data-structures"
+
 // Minimum ...
 func Minimum(items []Less) Less {
 	minimum := items[0]
@@ -81,13 +83,10 @@ func UniqueSorted(items []Equal) []Equal {
 // Items should be hashable.
 //
 func UniqueFast(items []interface{}) []interface{} {
-	itemMap := map[interface{}]struct{}{}
-	for _, item := range items {
-		itemMap[item] = struct{}{}
-	}
+	itemSet := datastructures.NewSet(items...)
 
 	newItems := []interface{}{}
-	for item := range itemMap {
+	for item := range itemSet {
 		newItems = append(newItems, item)
 	}
 
