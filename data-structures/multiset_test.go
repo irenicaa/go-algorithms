@@ -33,7 +33,9 @@ func TestNewMultiset(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := NewMultiset(tt.args.items...); !reflect.DeepEqual(got, tt.wantSet) {
+			got := NewMultiset(tt.args.items...)
+
+			if !reflect.DeepEqual(got, tt.wantSet) {
 				t.Errorf("NewMultiset() = %v, want %v", got, tt.wantSet)
 			}
 		})

@@ -574,7 +574,9 @@ func TestMergeSorted(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := MergeSorted(tt.args.left, tt.args.right); !reflect.DeepEqual(got, tt.want) {
+			got := MergeSorted(tt.args.left, tt.args.right)
+
+			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("MergeSorted() = %v, want %v", got, tt.want)
 			}
 		})

@@ -66,9 +66,7 @@ func TestSet_Contains(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := tt.set.Contains(tt.args.item)
-
-			if !reflect.DeepEqual(got, tt.want) {
+			if got := tt.set.Contains(tt.args.item); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("got %v, want %v", got, tt.want)
 			}
 		})
@@ -222,7 +220,9 @@ func TestSet_Intersection(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := tt.set.Intersection(tt.args.other); !reflect.DeepEqual(got, tt.want) {
+			got := tt.set.Intersection(tt.args.other)
+
+			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("Set.Intersection() = %v, want %v", got, tt.want)
 			}
 		})
@@ -267,7 +267,9 @@ func TestSet_Difference(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := tt.set.Difference(tt.args.other); !reflect.DeepEqual(got, tt.want) {
+			got := tt.set.Difference(tt.args.other)
+
+			if !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("Set.Difference() = %v, want %v", got, tt.want)
 			}
 		})

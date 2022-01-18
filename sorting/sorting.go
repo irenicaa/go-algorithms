@@ -2,9 +2,11 @@ package sorting
 
 import algorithms "github.com/irenicaa/go-algorithms"
 
-const wasNotSwapped = -1
-const forwardStep = 1
-const backwardStep = -1
+const (
+	wasNotSwapped = -1
+	forwardStep   = 1
+	backwardStep  = -1
+)
 
 // BubbleSort ...
 func BubbleSort(items []algorithms.Less) {
@@ -98,11 +100,9 @@ func QuickSort(items []algorithms.Less) []algorithms.Less {
 		return items
 	}
 
-	pivot := items[0]
-	items = items[1:]
+	pivot, items := items[0], items[1:]
 
-	left := []algorithms.Less{}
-	right := []algorithms.Less{}
+	left, right := []algorithms.Less{}, []algorithms.Less{}
 	for _, item := range items {
 		if item.Less(pivot) {
 			left = append(left, item)

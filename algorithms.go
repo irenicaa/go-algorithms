@@ -56,8 +56,7 @@ func SearchSorted(items []Less, sample Less) (Less, bool) {
 func UniqueUniversal(items []Equal) []Equal {
 	newItems := []Equal{}
 	for _, item := range items {
-		_, isDuplicate := SearchUniversal(newItems, item)
-		if !isDuplicate {
+		if _, isDuplicate := SearchUniversal(newItems, item); !isDuplicate {
 			newItems = append(newItems, item)
 		}
 	}
