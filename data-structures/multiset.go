@@ -52,13 +52,8 @@ func (set Multiset) Sum(other Multiset) Multiset {
 func (set Multiset) Union(other Multiset) Multiset {
 	union := Multiset{}
 	for item, quantity := range set {
-		var selectedQuantity int
-		if otherQuantity := other[item]; quantity > otherQuantity {
-			selectedQuantity = quantity
-		} else {
-			selectedQuantity = otherQuantity
-		}
-
+		otherQuantity := other[item]
+		selectedQuantity := maximum(quantity, otherQuantity)
 		union[item] = selectedQuantity
 	}
 	for item, quantity := range other {
@@ -100,6 +95,14 @@ func (set Multiset) Difference(other Multiset) Multiset {
 
 func minimum(a int, b int) int {
 	if a < b {
+		return a
+	}
+
+	return b
+}
+
+func maximum(a int, b int) int {
+	if a > b {
 		return a
 	}
 
