@@ -30,3 +30,20 @@ func (set Multiset) Remove(item interface{}) {
 		delete(set, item)
 	}
 }
+
+// Sum ...
+func (set Multiset) Sum(other Multiset) Multiset {
+	sum := Multiset{}
+	for item, quantity := range set {
+		otherQuantity := other[item]
+		selectedQuantity := quantity + otherQuantity
+		sum[item] = selectedQuantity
+	}
+	for item, quantity := range other {
+		if !sum.Contains(item) {
+			sum[item] = quantity
+		}
+	}
+
+	return sum
+}
