@@ -74,13 +74,8 @@ func (set Multiset) Union(other Multiset) Multiset {
 func (set Multiset) Intersection(other Multiset) Multiset {
 	intersection := Multiset{}
 	for item, quantity := range set {
-		var selectedQuantity int
-		if otherQuantity := other[item]; quantity < otherQuantity {
-			selectedQuantity = quantity
-		} else {
-			selectedQuantity = otherQuantity
-		}
-
+		otherQuantity := other[item]
+		selectedQuantity := minimum(quantity, otherQuantity)
 		if selectedQuantity > 0 {
 			intersection[item] = selectedQuantity
 		}
@@ -101,4 +96,12 @@ func (set Multiset) Difference(other Multiset) Multiset {
 	}
 
 	return difference
+}
+
+func minimum(a int, b int) int {
+	if a < b {
+		return a
+	}
+
+	return b
 }
