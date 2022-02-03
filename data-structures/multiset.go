@@ -47,3 +47,25 @@ func (set Multiset) Sum(other Multiset) Multiset {
 
 	return sum
 }
+
+// Union ...
+func (set Multiset) Union(other Multiset) Multiset {
+	union := Multiset{}
+	for item, quantity := range set {
+		var selectedQuantity int
+		if otherQuantity := other[item]; quantity > otherQuantity {
+			selectedQuantity = quantity
+		} else {
+			selectedQuantity = otherQuantity
+		}
+
+		union[item] = selectedQuantity
+	}
+	for item, quantity := range other {
+		if !union.Contains(item) {
+			union[item] = quantity
+		}
+	}
+
+	return union
+}

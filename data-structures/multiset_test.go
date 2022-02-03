@@ -201,3 +201,48 @@ func TestMultiset_Sum(t *testing.T) {
 		})
 	}
 }
+
+func TestMultiset_Union(t *testing.T) {
+	type args struct {
+		other Multiset
+	}
+
+	tests := []struct {
+		name string
+		set  Multiset
+		args args
+		want Multiset
+	}{
+		{
+			name: "both are empty",
+			set:  Multiset{},
+			args: args{other: Multiset{}},
+			want: Multiset{},
+		},
+		{
+			name: "first is empty",
+			set:  Multiset{},
+			args: args{other: Multiset{"one": 2, "two": 3}},
+			want: Multiset{"one": 2, "two": 3},
+		},
+		{
+			name: "second is empty",
+			set:  Multiset{"one": 2, "two": 3},
+			args: args{other: Multiset{}},
+			want: Multiset{"one": 2, "two": 3},
+		},
+		{
+			name: "nobody is empty",
+			set:  Multiset{"one": 2, "two": 3},
+			args: args{other: Multiset{"two": 4, "three": 2}},
+			want: Multiset{"one": 2, "two": 4, "three": 2},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := tt.set.Union(tt.args.other); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Multiset.Union() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
