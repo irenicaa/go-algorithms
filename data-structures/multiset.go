@@ -88,3 +88,17 @@ func (set Multiset) Intersection(other Multiset) Multiset {
 
 	return intersection
 }
+
+// Difference ...
+func (set Multiset) Difference(other Multiset) Multiset {
+	difference := Multiset{}
+	for item, quantity := range set {
+		otherQuantity := other[item]
+		selectedQuantity := quantity - otherQuantity
+		if selectedQuantity > 0 {
+			difference[item] = selectedQuantity
+		}
+	}
+
+	return difference
+}

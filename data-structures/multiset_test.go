@@ -293,3 +293,56 @@ func TestMultiset_Intersection(t *testing.T) {
 		})
 	}
 }
+
+func TestMultiset_Difference(t *testing.T) {
+	type args struct {
+		other Multiset
+	}
+
+	tests := []struct {
+		name string
+		set  Multiset
+		args args
+		want Multiset
+	}{
+		{
+			name: "both are empty",
+			set:  Multiset{},
+			args: args{other: Multiset{}},
+			want: Multiset{},
+		},
+		{
+			name: "nobody is empty (with intersection, without removing)",
+			set:  Multiset{"one": 2, "two": 3},
+			args: args{other: Multiset{"two": 1, "three": 2}},
+			want: Multiset{"one": 2, "two": 2},
+		},
+		{
+			name: "nobody is empty (with intersection, with removing)",
+			set:  Multiset{"one": 2, "two": 3},
+			args: args{other: Multiset{"two": 4, "three": 2}},
+			want: Multiset{"one": 2},
+		},
+		{
+			name: "nobody is empty (without intersection)",
+			set:  Multiset{"one": 2, "two": 3},
+			args: args{other: Multiset{"three": 4, "four": 2}},
+			want: Multiset{"one": 2, "two": 3},
+		},
+		{
+			name: "nobody is empty (same)",
+			set:  Multiset{"one": 2, "two": 3},
+			args: args{other: Multiset{"one": 2, "two": 3}},
+			want: Multiset{},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := tt.set.Difference(tt.args.other)
+
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Multiset.Difference() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
