@@ -69,3 +69,22 @@ func (set Multiset) Union(other Multiset) Multiset {
 
 	return union
 }
+
+// Intersection ...
+func (set Multiset) Intersection(other Multiset) Multiset {
+	intersection := Multiset{}
+	for item, quantity := range set {
+		var selectedQuantity int
+		if otherQuantity := other[item]; quantity < otherQuantity {
+			selectedQuantity = quantity
+		} else {
+			selectedQuantity = otherQuantity
+		}
+
+		if selectedQuantity > 0 {
+			intersection[item] = selectedQuantity
+		}
+	}
+
+	return intersection
+}

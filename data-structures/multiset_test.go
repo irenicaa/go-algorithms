@@ -246,3 +246,50 @@ func TestMultiset_Union(t *testing.T) {
 		})
 	}
 }
+
+func TestMultiset_Intersection(t *testing.T) {
+	type args struct {
+		other Multiset
+	}
+
+	tests := []struct {
+		name string
+		set  Multiset
+		args args
+		want Multiset
+	}{
+		{
+			name: "both are empty",
+			set:  Multiset{},
+			args: args{other: Multiset{}},
+			want: Multiset{},
+		},
+		{
+			name: "nobody is empty (with intersection, the left item is bigger)",
+			set:  Multiset{"one": 2, "two": 3},
+			args: args{other: Multiset{"two": 1, "three": 2}},
+			want: Multiset{"two": 1},
+		},
+		{
+			name: "nobody is empty (with intersection, the left item is smaller)",
+			set:  Multiset{"one": 2, "two": 3},
+			args: args{other: Multiset{"two": 4, "three": 2}},
+			want: Multiset{"two": 3},
+		},
+		{
+			name: "nobody is empty (without intersection)",
+			set:  Multiset{"one": 2, "two": 3},
+			args: args{other: Multiset{"three": 4, "four": 2}},
+			want: Multiset{},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got := tt.set.Intersection(tt.args.other)
+
+			if !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("Multiset.Intersection() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
