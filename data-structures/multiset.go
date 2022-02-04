@@ -85,6 +85,22 @@ func (set Multiset) Difference(other Multiset) Multiset {
 	return difference
 }
 
+func (set Multiset) merge(
+	other Multiset,
+	quantitySelector func(quantity int, otherQuantity int) int,
+) Multiset {
+	newSet := Multiset{}
+	for item, quantity := range set {
+		otherQuantity := other[item]
+		selectedQuantity := quantitySelector(quantity, otherQuantity)
+		if selectedQuantity > 0 {
+			newSet[item] = selectedQuantity
+		}
+	}
+
+	return newSet
+}
+
 func (set Multiset) completeWithMissed(other Multiset) {
 	for item, quantity := range other {
 		if !set.Contains(item) {
