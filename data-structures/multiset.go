@@ -39,11 +39,7 @@ func (set Multiset) Sum(other Multiset) Multiset {
 		selectedQuantity := quantity + otherQuantity
 		sum[item] = selectedQuantity
 	}
-	for item, quantity := range other {
-		if !sum.Contains(item) {
-			sum[item] = quantity
-		}
-	}
+	sum.completeWithMissed(other)
 
 	return sum
 }
@@ -56,11 +52,7 @@ func (set Multiset) Union(other Multiset) Multiset {
 		selectedQuantity := maximum(quantity, otherQuantity)
 		union[item] = selectedQuantity
 	}
-	for item, quantity := range other {
-		if !union.Contains(item) {
-			union[item] = quantity
-		}
-	}
+	union.completeWithMissed(other)
 
 	return union
 }
@@ -91,6 +83,14 @@ func (set Multiset) Difference(other Multiset) Multiset {
 	}
 
 	return difference
+}
+
+func (set Multiset) completeWithMissed(other Multiset) {
+	for item, quantity := range other {
+		if !set.Contains(item) {
+			set[item] = quantity
+		}
+	}
 }
 
 func minimum(a int, b int) int {
