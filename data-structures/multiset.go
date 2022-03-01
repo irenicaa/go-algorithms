@@ -33,12 +33,9 @@ func (set Multiset) Remove(item interface{}) {
 
 // Sum ...
 func (set Multiset) Sum(other Multiset) Multiset {
-	sum := Multiset{}
-	for item, quantity := range set {
-		otherQuantity := other[item]
-		selectedQuantity := quantity + otherQuantity
-		sum[item] = selectedQuantity
-	}
+	sum := set.merge(other, func(quantity int, otherQuantity int) int {
+		return quantity + otherQuantity
+	})
 	sum.completeWithMissed(other)
 
 	return sum
@@ -46,12 +43,9 @@ func (set Multiset) Sum(other Multiset) Multiset {
 
 // Union ...
 func (set Multiset) Union(other Multiset) Multiset {
-	union := Multiset{}
-	for item, quantity := range set {
-		otherQuantity := other[item]
-		selectedQuantity := maximum(quantity, otherQuantity)
-		union[item] = selectedQuantity
-	}
+	union := set.merge(other, func(quantity int, otherQuantity int) int {
+		return maximum(quantity, otherQuantity)
+	})
 	union.completeWithMissed(other)
 
 	return union
@@ -59,30 +53,16 @@ func (set Multiset) Union(other Multiset) Multiset {
 
 // Intersection ...
 func (set Multiset) Intersection(other Multiset) Multiset {
-	intersection := Multiset{}
-	for item, quantity := range set {
-		otherQuantity := other[item]
-		selectedQuantity := minimum(quantity, otherQuantity)
-		if selectedQuantity > 0 {
-			intersection[item] = selectedQuantity
-		}
-	}
-
-	return intersection
+	return set.merge(other, func(quantity int, otherQuantity int) int {
+		return minimum(quantity, otherQuantity)
+	})
 }
 
 // Difference ...
 func (set Multiset) Difference(other Multiset) Multiset {
-	difference := Multiset{}
-	for item, quantity := range set {
-		otherQuantity := other[item]
-		selectedQuantity := quantity - otherQuantity
-		if selectedQuantity > 0 {
-			difference[item] = selectedQuantity
-		}
-	}
-
-	return difference
+	return set.merge(other, func(quantity int, otherQuantity int) int {
+		return quantity - otherQuantity
+	})
 }
 
 func (set Multiset) merge(
