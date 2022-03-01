@@ -13,7 +13,7 @@ The library implementing some basic algorithms and data structures.
     - search for the maximal item in a slice
     - [linear search](https://en.wikipedia.org/wiki/Linear_search)
     - [binary search](https://en.wikipedia.org/wiki/Binary_search_algorithm)
-  - filter out the non-unique items in a slice:
+  - filtering out the non-unique items in a slice:
     - universal
     - in a sorted slice only
     - via a set (a data structure); i.e., in a slice containing hashable items only
@@ -28,8 +28,23 @@ The library implementing some basic algorithms and data structures.
     - [merge sort](https://en.wikipedia.org/wiki/Merge_sort)
     - [quicksort](https://en.wikipedia.org/wiki/Quicksort)
 - data structures:
-  - [set](<https://en.wikipedia.org/wiki/Set_(abstract_data_type)>)
-  - [multiset](<https://en.wikipedia.org/wiki/Set_(abstract_data_type)#Multiset>)
+  - [set](<https://en.wikipedia.org/wiki/Set_(abstract_data_type)>):
+    - operations:
+      - checking that a set contains an item
+      - adding an item
+      - removing an item
+      - evaluating union with another set
+      - evaluating intersection with another set
+      - evaluating difference between two sets
+  - [multiset](<https://en.wikipedia.org/wiki/Set_(abstract_data_type)#Multiset>):
+    - operations:
+      - checking that a set contains an item
+      - adding an item
+      - removing an item
+      - evaluating sum with another set
+      - evaluating union with another set
+      - evaluating intersection with another set
+      - evaluating difference between two sets
 
 ## Installation
 
